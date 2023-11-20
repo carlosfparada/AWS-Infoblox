@@ -69,15 +69,11 @@
     key_name: "{{ vpcs[item.key].ec2_key_name }}"
     region: "{{ vpcs[item.key].ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
+    user_data: "{{ vpcs[item.key].ec2_instance_user_data }}"
     network:
       assign_public_ip: true
     tags:
       Name: "{{ vpcs[item.key].ec2_instance_name }}"
-    volumes:
-      - device_name: "{{ vpcs[item.key].ec2_ebs_name | default('/dev/sda', true) }}"
-        ebs:
-          volume_size: "{{ vpcs[item.key].ec2_disk_size | default(20, true) }}"
-          delete_on_termination: true
     state: running
   register: ec2_instance
 

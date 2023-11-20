@@ -18,31 +18,35 @@ vpcs:
     ec2_sg_rules:
       - proto: tcp
         ports:
+          - 22
+          - 53
           - 80
           - 443
-          - 22
+          - 8787
         cidr_ip: 0.0.0.0/0
-        rule_desc: Allow all on ports
+        rule_desc: Allow TCP ports
+      - proto: udp
+        ports:
+          - 53
+          - 1194
+          - 2114
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Allow UDP ports
       - proto: icmp
         icmp_type: -1
         icmp_code: -1
         cidr_ip: 0.0.0.0/0
         rule_desc: Allow all ICMP
-    # AMI 1
+    # AMI Infoblox
     infoblox_image_name: Infoblox NIOS 8.6.3 for DDI-86a90f05-2b29-46c8-9fe0-e9a450b73bdb
-    # Flavour 1 
-    ec2_flavor_name: t2.micro
-    # Disk 1
-    ec2_disk_size: 20
-    ec2_ebs_name: /dev/sda1
-    # Key Pair 1
+    # Flavour Infoblox
+    ec2_flavor_name: m5.large
+    # Key Pair Infoblox
     ec2_key_name: "KeyPair-Virginia"
-    # Instance 1
-    ec2_instance_name: rhel-1
-
-# Infoblox Image Name
-infoblox_image_name: 
-# #infoblox-config
-# remote_console_enabled: y
-# default_admin_password: adminadmin
-# temp_license: enterprise dns dhcp cloud nios IB-V825
+    # Instance Name Infoblox
+    ec2_instance_name: infoblox-1
+    # User Data Infoblox Image Name
+    ec2_instance_user_data: | 
+      remote_console_enabled: y
+      default_admin_password: adminadmin
+      temp_license: enterprise dns dhcp cloud nios IB-V825
