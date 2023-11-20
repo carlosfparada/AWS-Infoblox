@@ -21,7 +21,7 @@
       "tag:Name": "{{ vpcs[item.key].ec2_rt_name }}"
   register: rtb
 
-- name: Terminate RHEL instance {{ vpcs[item.key].ec2_instance_name }}
+- name: Terminate Infoblox instance {{ vpcs[item.key].ec2_instance_name }}
   amazon.aws.ec2_instance:
     state: absent
     region: "{{ vpcs[item.key].ec2_vpc_region }}"

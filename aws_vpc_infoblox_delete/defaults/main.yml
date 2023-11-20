@@ -14,7 +14,7 @@ vpcs:
     ec2_rt_name: RT1
     # SG 1
     ec2_sg_name: SG1
-    # RHEL Rules 1
+    # Infoblox Rules 1
     ec2_sg_rules:
       - proto: tcp
         ports:
