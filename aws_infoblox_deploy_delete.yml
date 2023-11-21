@@ -1,7 +1,7 @@
-- name: AWS Infoblox
+- name: AWS Infoblox delete
   hosts: localhost
   connection: local
   gather_facts: no
   roles:
-    - aws_vpc_infoblox
+    - aws_vpc_infoblox_delete
   
