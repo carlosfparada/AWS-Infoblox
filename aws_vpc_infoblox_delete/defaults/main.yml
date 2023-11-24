@@ -39,8 +39,11 @@ vpcs:
         rule_desc: Allow all ICMP
     # AMI Infoblox
     ec2_image_name: Infoblox NIOS 8.6.3 for DDI-86a90f05-2b29-46c8-9fe0-e9a450b73bdb
+    #ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
     # Flavour Infoblox
     ec2_flavor_name: m5.large
+    #ec2_flavor_name: m5.xlarge
+    #ec2_flavor_name: i3.large
     # Key Pair Infoblox
     ec2_key_name: "KeyPair-Virginia"
     # Instance Name Infoblox
