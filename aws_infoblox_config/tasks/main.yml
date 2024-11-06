@@ -2,12 +2,16 @@
 
 - name: Configure a network ipv4
   infoblox.nios_modules.nios_network:
+    provider: "{{ provider }}"
     network: "{{ ip_network }}"
-    comment: this is a test comment
-    state: present
-    provider:
-      host: infoblox-1
-      username: admin
-      password: "admin123$%&"
+    comment: "Network {{ ip_network }}"
 
 
+- name: Get Next IP address from Network {{ ip_network }}
+  ansible.builtin.set_fact:
+    provider: "{{ provider }}"
+    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ip_network', 'provider'=provider }}"
+
+- name: Next IP address from Network {{ ip_network }} is {{ ip_address }}
+  debug:
+    msg: "Next IP address from Network {{ ip_network }} is {{ ip_address }}"
