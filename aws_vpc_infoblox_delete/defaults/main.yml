@@ -1,55 +1,79 @@
+# VPC
+ec2_vpc_name: VPC
+ec2_vpc_region: us-east-1
+ec2_vpc_cidr: 10.0.0.0/16
+# Subnet
+ec2_subnet_az: us-east-1a
+ec2_subnet_name: Subnet
+ec2_subnet_cidr: 10.0.0.0/24
+# Subnet1
+ec2_subnet_name1: SubnetENI1
+ec2_subnet_cidr1: 10.0.1.0/24
+# Subnet2
+ec2_subnet_name2: SubnetENI2
+ec2_subnet_cidr2: 10.0.2.0/24
+# ENI1
+ec2_eni_name1: ENI1
+# ENI2
+ec2_eni_name2: ENI2
+# IGW
+ec2_igw_name: IGW
+# Route Table
+ec2_rt_name: RT
+# RHEL Open ports
+ec2_sg_name: SG
+ec2_sg_openports:
+  - 80
+  - 443
+  - 22
+  - 514
+  - 541
+  - 542
+  - 9433
 
-vpcs:
-  # VPC 1
-  VPC1:
-    ec2_vpc_name: VPC1
-    ec2_vpc_region: us-east-1
-    ec2_vpc_cidr: 10.1.0.0/16
-    # Subnet 1
-    ec2_subnet_name: Subnet1
-    ec2_subnet_cidr: 10.1.0.0/24
-    # IGW 1
-    ec2_igw_name: IGW1
-    # Route Table 1
-    ec2_rt_name: RT1
-    # SG 1
-    ec2_sg_name: SG1
-    # Infoblox Rules 1
-    ec2_sg_rules:
-      - proto: tcp
-        ports:
-          - 22
-          - 53
-          - 80
-          - 443
-          - 8787
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Allow TCP ports
-      - proto: udp
-        ports:
-          - 53
-          - 1194
-          - 2114
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Allow UDP ports
-      - proto: icmp
-        icmp_type: -1
-        icmp_code: -1
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Allow all ICMP
-    # AMI Infoblox
-    ec2_image_name: Infoblox NIOS 8.6.3 for DDI-86a90f05-2b29-46c8-9fe0-e9a450b73bdb
-    #ec2_image_name: RHEL-8.6.0_HVM-*x86_64*
-    # Flavour Infoblox
-    ec2_flavor_name: m5.large
-    #ec2_flavor_name: m5.xlarge
-    #ec2_flavor_name: i3.large
-    # Key Pair Infoblox
-    ec2_key_name: "KeyPair-Virginia"
-    # Instance Name Infoblox
-    ec2_instance_name: infoblox-1
-    # User Data Infoblox Image Name
-    ec2_instance_user_data: | 
-      remote_console_enabled: y
-      default_admin_password: adminadmin
-      temp_license: enterprise dns dhcp cloud nios IB-V825
+# Fortigate
+# AMI
+#ec2_fgt_image_id: ami-08ddb86a9817b419a # v7.0.13
+ec2_fgt_image_name: FortiGate-VM64-AWSONDEMAND build2095 (6.4.15) GA-3124a694-441c-4ff1-8bf7-4d153be424a6
+# AMI - byol
+#ec2_fgt_image_name: FortiGate-VM64-AWS build2571 (7.4.2) GA-e5936f4a-0d69-479f-919c-d5e158bd4d12
+# Flavour 
+ec2_fgt_flavor_name: c6i.xlarge
+# Key Pair
+ec2_fgt_key_name: "KeyPair-Virginia"
+# Instance
+ec2_fgt_instance_name: fortigate-1
+
+# FortiAnalyzer
+# 2 Managed Nodes
+ec2_faz_image_id: ami-0f4ef674bd83d052a # v7.0.10
+#ec2_faz_image_name: FortiAnalyzer VM64-AWSOnDemand build2397 (7.4.2) GA-9e82717a-78e4-4f57-9ef9-d50bdc2838a4
+# 10 Managed Nodes
+#ec2_faz_image_name: FortiAnalyzer VM64-AWSOnDemand build2397 (7.4.2) GA-5bc06b01-2e8b-4205-b84c-8ac24e5925cb
+# AMI - byol
+#ec2_faz_image_name: FortiAnalyzer VM64-AWS build2397 (7.4.2) GA-a0cc1ba3-1642-429d-adfa-6b6c66dfacb9
+# Flavour 
+#ec2_faz_flavor_name: m5.large
+#ec2_faz_flavor_name: t2.large
+ec2_faz_flavor_name: m5.xlarge
+# Key Pair
+ec2_faz_key_name: "KeyPair-Virginia"
+# Instance
+ec2_faz_instance_name: fortianalyzer-1
+
+# FortiManager
+# AMI
+# 2 Managed Nodes
+ec2_fmg_image_id: ami-0be53223769fdebde #v7.0.10
+#ec2_fmg_image_name: FortiManager VM64-AWSOnDemand build2397 (7.4.2) GA-5d6aff10-05ff-4cc5-ac93-ef8a6ce51c77
+# 10 Managed Nodes
+#ec2_fmg_image_name: FortiManager VM64-AWSOnDemand build2397 (7.4.2) GA-699721cb-aa98-4257-b591-42ead5c55849
+# AMI - byol
+#ec2_fmg_image_name: FortiManager VM64-AWS build2397 (7.4.2) GA-0ba08f70-6838-4190-9961-0b00d77b74fc
+# Flavour 
+#ec2_fmg_flavor_name: t2.large
+ec2_fmg_flavor_name: m5.xlarge
+# Key Pair
+ec2_fmg_key_name: "KeyPair-Virginia"
+# Instance
+ec2_fmg_instance_name: fortimanager-1

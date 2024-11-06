@@ -1,6 +1,228 @@
 ---
 
-- name: Loop for VPCs creation
-  include_tasks: main_loop_vpcs.yml
-  loop: "{{ vpcs | dict2items }}"
+- name: Create VPC {{ ec2_vpc_name }}
+  amazon.aws.ec2_vpc_net:
+    name: "{{ ec2_vpc_name }}"
+    cidr_block: "{{ ec2_vpc_cidr }}"
+    region: "{{ ec2_vpc_region }}"
+    state: present
+    tags:
+      Name: "{{ ec2_vpc_name }}"
+  register: vpc
 
+- name: Create Subnet default in VPC
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ ec2_subnet_cidr }}"
+    region: "{{ ec2_vpc_region }}"
+    az: "{{ ec2_subnet_az }}"
+    state: present
+    tags:
+      Name: "{{ ec2_subnet_name }}"
+  register: subnet
+
+- name: Create Subnet 1 in VPC
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ ec2_subnet_cidr1 }}"
+    region: "{{ ec2_vpc_region }}"
+    az: "{{ ec2_subnet_az }}"
+    state: present
+    tags:
+      Name: "{{ ec2_subnet_name1 }}"
+  register: subnet1
+
+- name: Create Subnet 2 in VPC
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ ec2_subnet_cidr2 }}"
+    region: "{{ ec2_vpc_region }}"
+    az: "{{ ec2_subnet_az }}"
+    state: present
+    tags:
+      Name: "{{ ec2_subnet_name2 }}"
+  register: subnet2
+
+- name: Create Internet Gateway (IGW)
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ ec2_vpc_region }}"
+    state: present
+    tags:
+      Name: "{{ ec2_igw_name }}"
+  register: igw
+
+- name: Create Route Table and IGW route
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ ec2_vpc_region }}"
+    state: present
+    tags:
+      Name: "{{ ec2_rt_name }}"
+    subnets:
+      - "{{ subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+
+- name: Create Security Group
+  amazon.aws.ec2_security_group:
+    name: "{{ ec2_sg_name }}"
+    description: Allow all on ports
+    state: present
+    rules:
+      - proto: tcp
+        ports: "{{ ec2_sg_openports }}"
+        cidr_ip: 0.0.0.0/0
+        rule_desc: Allow all on ports
+    region: "{{ ec2_vpc_region }}"
+    vpc_id: "{{ vpc.vpc.id }}"
+    tags:
+      Name: "{{ ec2_sg_name }}"
+
+# FortiGate
+- name: Get AMI by Name (FortiGate)
+  amazon.aws.ec2_ami_info:
+    filters:
+      #image-id: "{{ ec2_fgt_image_id }}"
+      name: "{{ ec2_fgt_image_name }}"
+    region: "{{ ec2_vpc_region }}"
+  register: ami_fgt_find
+
+- name: Create FortiGate instance
+  amazon.aws.ec2_instance:
+    image_id: "{{ ami_fgt_find.images[-1].image_id | default('') }}"
+    instance_type: "{{ ec2_fgt_flavor_name }}"
+    security_group: "{{ ec2_sg_name }}"
+    name: "{{ ec2_fgt_instance_name }}"
+    key_name: "{{ ec2_fgt_key_name }}"
+    region: "{{ ec2_vpc_region }}"
+    vpc_subnet_id: "{{ subnet.subnet.id }}"
+    network:
+      assign_public_ip: true
+    tags:
+      Name: "{{ ec2_fgt_instance_name }}"
+    state: running
+  register: ec2_fgt_instance
+
+- name: Create and Attach ENI 1
+  amazon.aws.ec2_eni:
+    name: "{{ ec2_eni_name1 }}"
+    region: "{{ ec2_vpc_region }}"
+    instance_id: "{{ ec2_fgt_instance.instances[0].instance_id }}"
+    device_index: 2
+    subnet_id: "{{ subnet1.subnet.id }}"
+    delete_on_termination: true
+    attached: true
+    state: present
+
+- name: Create and Attach ENI 2
+  amazon.aws.ec2_eni:
+    name: "{{ ec2_eni_name2 }}"
+    region: "{{ ec2_vpc_region }}"
+    instance_id: "{{ ec2_fgt_instance.instances[0].instance_id }}"
+    device_index: 3
+    subnet_id: "{{ subnet2.subnet.id }}"
+    delete_on_termination: true
+    attached: true
+    state: present
+
+- name: Print FortiGate instance details
+  ansible.builtin.debug:
+    msg: "Instance DNS name is: {{ ec2_fgt_instance.instances[0].public_dns_name }} with IP address {{ ec2_fgt_instance.instances[0].public_ip_address }}"
+
+#FortiAnalyzer
+- name: Get AMI by Name (FortiAnalyzer)
+  amazon.aws.ec2_ami_info:
+    filters:
+      image-id: "{{ ec2_faz_image_id }}"
+      #name: "{{ ec2_faz_image_name }}"
+    region: "{{ ec2_vpc_region }}"
+  register: ami_faz_find
+  tags: full
+
+- name: Create FortiAnalyzer instance
+  amazon.aws.ec2_instance:
+    image_id: "{{ ami_faz_find.images[-1].image_id | default('') }}"
+    instance_type: "{{ ec2_faz_flavor_name }}"
+    security_group: "{{ ec2_sg_name }}"
+    name: "{{ ec2_faz_instance_name }}"
+    key_name: "{{ ec2_faz_key_name }}"
+    region: "{{ ec2_vpc_region }}"
+    vpc_subnet_id: "{{ subnet.subnet.id }}"
+    network:
+      assign_public_ip: true
+    tags:
+      Name: "{{ ec2_faz_instance_name }}"
+    state: running
+  register: ec2_faz_instance
+  tags: full
+
+- name: Print FortiAnalyzer instance details
+  ansible.builtin.debug:
+    msg: "Instance DNS name is: {{ ec2_faz_instance.instances[0].public_dns_name }} with IP address {{ ec2_faz_instance.instances[0].public_ip_address }}"
+  tags: full
+
+#FortiManager
+- name: Get AMI by Name (FortiManager)
+  amazon.aws.ec2_ami_info:
+    filters:
+      image-id: "{{ ec2_fmg_image_id }}"
+      #name: "{{ ec2_fmg_image_name }}"
+    region: "{{ ec2_vpc_region }}"
+  register: ami_fmg_find
+  tags: full
+
+- name: Create FortiManager instance
+  amazon.aws.ec2_instance:
+    image_id: "{{ ami_fmg_find.images[-1].image_id | default('') }}"
+    instance_type: "{{ ec2_fmg_flavor_name }}"
+    security_group: "{{ ec2_sg_name }}"
+    name: "{{ ec2_fmg_instance_name }}"
+    key_name: "{{ ec2_fmg_key_name }}"
+    region: "{{ ec2_vpc_region }}"
+    vpc_subnet_id: "{{ subnet.subnet.id }}"
+    network:
+      assign_public_ip: true
+    tags:
+      Name: "{{ ec2_fmg_instance_name }}"
+    state: running
+  register: ec2_fmg_instance
+  tags: full
+
+- name: Print FortiManager instance details
+  ansible.builtin.debug:
+    msg: "Instance DNS name is: {{ ec2_fmg_instance.instances[0].public_dns_name }} with IP address {{ ec2_fmg_instance.instances[0].public_ip_address }}"
+  tags: full
+
+# Wait for boot ups
+- name: Wait until FortiGate boots up
+  wait_for:
+    port: 22
+    state: started
+    timeout: 600
+    delay: 30
+    host: "{{ ec2_fgt_instance.instances[0].public_dns_name }}"
+  
+- name: Wait until FortiAnalyzer boots up
+  wait_for:
+    port: 22
+    state: started
+    timeout: 600
+    delay: 30
+    host: "{{ ec2_faz_instance.instances[0].public_dns_name }}"
+  tags: full
+
+- name: Wait until FortiManager boots up
+  wait_for:
+    port: 22
+    state: started
+    timeout: 600
+    delay: 30
+    host: "{{ ec2_fmg_instance.instances[0].public_dns_name }}"
+  tags: full
+
+- name: Sleep for 30 seconds and continue with play
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
