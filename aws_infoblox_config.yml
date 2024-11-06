@@ -1,0 +1,7 @@
+- name: AWS Infoblox config
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - aws_infoblox_config
+  

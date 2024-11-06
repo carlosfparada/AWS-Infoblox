@@ -1,0 +1,13 @@
+---
+
+- name: Configure a network ipv4
+  infoblox.nios_modules.nios_network:
+    network: "{{ ip_network }}"
+    comment: this is a test comment
+    state: present
+    provider:
+      host: infoblox-1
+      username: admin
+      password: "admin123$%&"
+
+
