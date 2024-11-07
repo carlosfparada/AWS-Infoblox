@@ -92,7 +92,7 @@
     tags:
       Name: "{{ ec2_eni_name_srv }}"
     state: present
-  register: eni_mgmt
+  register: eni_srv
 
 - name: Create ENI MGMT
   amazon.aws.ec2_eni:
