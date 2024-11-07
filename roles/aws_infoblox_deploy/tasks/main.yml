@@ -109,9 +109,9 @@
     image_id: "{{ ami_infoblox_find.images[-1].image_id | default('') }}"
     instance_type: "{{ ec2_infoblox_flavor_name }}"
     name: "{{ ec2_infoblox_instance_name }}"
-    key_name: "{{ ec2_infoblox_keypair_name }}"
     region: "{{ ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet_srv.subnet.id }}"
+    key_name: "{{ ec2_infoblox_keypair_name }}"
     network_interfaces_ids:
       - id: "{{ eni_mgmt.interface.id }}"
         device_index: 0
