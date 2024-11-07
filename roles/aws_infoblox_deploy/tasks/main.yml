@@ -106,7 +106,8 @@
     state: present
   register: eni_mgmt
 
-- debug: ENI
+- name: ENI
+  debug:
     var: eni_mgmt
 
 - name: Allocate a new elastic IP to ENI MGMT
@@ -116,7 +117,8 @@
     state: present
   register: eip_mgmt
 
-- debug: EIP
+- name: EIP
+  debug:
     var: eip_mgmt
 
 - name: Print Infoblox instance details
