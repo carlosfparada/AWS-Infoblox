@@ -41,6 +41,7 @@
     device_id: "{{ eni_mgmt.network_interfaces[0].network_interface_id }}"
     in_vpc: true
     state: absent
+    release_on_disassociation: true
   register: eip_mgmt
 
 - name: Terminate Infoblox instance
