@@ -50,13 +50,13 @@
       "tag:Name": "{{ ec2_infoblox_instance_name }}"
     state: absent
 
-# - name: Delete ENI SRV
-#   amazon.aws.ec2_eni:
-#     name: "{{ ec2_eni_name_srv }}"
-#     subnet_id: "{{ subnet_srv.subnets[0].subnet_id }}"
-#     region: "{{ ec2_vpc_region }}"
-#     state: absent
-#   when: subnet_srv.subnets | length > 0
+- name: Delete ENI SRV
+  amazon.aws.ec2_eni:
+    name: "{{ ec2_eni_name_srv }}"
+    subnet_id: "{{ subnet_srv.subnets[0].subnet_id }}"
+    region: "{{ ec2_vpc_region }}"
+    state: absent
+  when: subnet_srv.subnets | length > 0
   
 - name: Delete ENI MGMT
   amazon.aws.ec2_eni:
