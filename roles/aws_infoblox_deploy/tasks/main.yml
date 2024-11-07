@@ -128,7 +128,7 @@
 
 - name: Print Infoblox instance details
   ansible.builtin.debug:
-    msg: "Instance DNS name is: {{ eip.public_dns }} with IP address {{ eip.public_ip }}"
+    msg: "Instance IP address {{ eip_mgmt.public_ip }}"
 
 # Wait for boot ups
 - name: Wait until Infoblox boots up
@@ -137,7 +137,7 @@
     state: started
     timeout: 600
     delay: 30
-    host: "{{ eip.public_dns }}"
+    host: "{{ eip_mgmt.public_ip }}"
 
 # - name: Sleep for 30 seconds and continue with play
 #   wait_for:
