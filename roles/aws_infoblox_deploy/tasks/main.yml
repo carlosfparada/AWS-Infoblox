@@ -140,7 +140,3 @@
     delay: 30
     host: "{{ eip_mgmt.public_ip }}"
 
-# - name: Sleep for 30 seconds and continue with play
-#   wait_for:
-#     timeout: 30
-#   delegate_to: localhost
