@@ -129,7 +129,7 @@
     state: running
   register: ec2_infoblox_instance
 
-- name: Allocate a new Elastic IP to ENI MGMT
+- name: Allocate an Elastic IP to ENI MGMT
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
     device_id: "{{ eni_mgmt.interface.id }}"
