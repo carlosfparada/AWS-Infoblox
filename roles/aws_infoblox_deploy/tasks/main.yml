@@ -87,6 +87,7 @@
     key_name: "{{ ec2_infoblox_keypair_name }}"
     region: "{{ ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet_srv.subnet.id }}"
+    network_interfaces_ids: []
     # network:
     #   assign_public_ip: true
     tags:
@@ -94,9 +95,24 @@
     state: running
   register: ec2_infoblox_instance
 
-- name: Create and Attach ENI MGMT
+- name: Create and Attach ENI SRV
   amazon.aws.ec2_eni:
     name: "{{ ec2_eni_name_srv }}"
+    region: "{{ ec2_vpc_region }}"
+    instance_id: "{{ ec2_infoblox_instance.instances[0].instance_id }}"
+    device_index: 1
+    subnet_id: "{{ subnet_srv.subnet.id }}"
+    security_groups: "{{ ec2_sg_name }}"
+    delete_on_termination: true
+    attached: true
+    tags:
+      Name: "{{ ec2_eni_name_srv }}"
+    state: present
+  register: eni_mgmt
+
+- name: Create and Attach ENI MGMT
+  amazon.aws.ec2_eni:
+    name: "{{ ec2_eni_name_mgmt }}"
     region: "{{ ec2_vpc_region }}"
     instance_id: "{{ ec2_infoblox_instance.instances[0].instance_id }}"
     device_index: 1
