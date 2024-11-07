@@ -49,8 +49,8 @@
     tags:
       Name: "{{ ec2_rt_name }}"
     subnets:
-      - "{{ subnet_srv.subnet.id }}"
       - "{{ subnet_mgmt.subnet.id }}"
+      - "{{ subnet_srv.subnet.id }}"
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
