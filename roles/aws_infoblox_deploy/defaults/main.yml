@@ -34,3 +34,8 @@ ec2_infoblox_image_id: ami-0622a3d7a285429de
 ec2_infoblox_image_name: Infoblox NIOS 9.0.5(BYOL)-3d6f2259-6756-484c-ac5e-f2d9330afe95
 ec2_infoblox_flavor_name: m5.large
 ec2_infoblox_keypair_name: "KeyPair-Virginia"
+ec2_infoblox_admin_pass: "admin123$%&""
+ec2_infoblox_user_data: |
+  remote_console_enabled: y
+  default_admin_password: {{ ec2_infoblox_admin_pass }}
+  temp_license: enterprise dns dhcp cloud nios IB-V825
