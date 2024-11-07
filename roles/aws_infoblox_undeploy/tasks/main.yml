@@ -28,9 +28,6 @@
       "tag:Name": "{{ ec2_eni_name_mgmt }}"
   register: eni_mgmt
 
-- debug: 
-    var: eni_mgmt
-
 - name: Query Route Tables
   amazon.aws.ec2_vpc_route_table_info:
     region: "{{ ec2_vpc_region }}"
