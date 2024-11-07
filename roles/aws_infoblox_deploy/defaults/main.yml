@@ -9,10 +9,10 @@ ec2_subnet_cidr_srv: 10.0.1.0/24
 ec2_subnet_name_mgmt: Subnet-MGMT
 ec2_subnet_cidr_mgmt: 10.0.2.0/24
 # ENIs
-ec2_eni_name_srv: ENI1
-ec2_eni_name_mgmt: ENI2
+ec2_eni_name_srv: ENI_SRV
+ec2_eni_name_mgmt: ENI_MGMT
 # Elastic IP
-ec2_eip_name_mgmt: EIP1
+ec2_eip_name_mgmt: EIP_MGMT
 # IGW
 ec2_igw_name: IGW1
 # Route Table
