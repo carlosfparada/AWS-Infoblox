@@ -49,7 +49,8 @@
     tags:
       Name: "{{ ec2_rt_name }}"
     subnets:
-      - "{{ subnet.subnet.id }}"
+      - "{{ subnet_srv.subnet.id }}"
+      - "{{ subnet_mgmt.subnet.id }}"
     routes:
       - dest: 0.0.0.0/0
         gateway_id: "{{ igw.gateway_id }}"
@@ -69,8 +70,7 @@
     tags:
       Name: "{{ ec2_sg_name }}"
 
-# FortiGate
-- name: Get AMI by Name (FortiGate)
+- name: Get AMI by Name
   amazon.aws.ec2_ami_info:
     filters:
       #image-id: "{{ ec2_infoblox_image_id }}"
@@ -105,7 +105,7 @@
     attached: true
     state: present
 
-- name: Print FortiGate instance details
+- name: Print Infoblox instance details
   ansible.builtin.debug:
     msg: "Instance DNS name is: {{ ec2_infoblox_instance.instances[0].public_dns_name }} with IP address {{ ec2_infoblox_instance.instances[0].public_ip_address }}"
 
