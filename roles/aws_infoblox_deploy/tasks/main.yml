@@ -87,27 +87,41 @@
     key_name: "{{ ec2_infoblox_key_name }}"
     region: "{{ ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
-    network:
-      assign_public_ip: true
+    # network:
+    #   assign_public_ip: true
     tags:
       Name: "{{ ec2_infoblox_instance_name }}"
     state: running
   register: ec2_infoblox_instance
 
-- name: Create and Attach ENI SRV
+- name: Create and Attach ENI MGMT
   amazon.aws.ec2_eni:
-    name: "{{ ec2_eni_name1 }}"
+    name: "{{ ec2_eni_name_srv }}"
     region: "{{ ec2_vpc_region }}"
     instance_id: "{{ ec2_infoblox_instance.instances[0].instance_id }}"
-    device_index: 2
-    subnet_id: "{{ subnet1.subnet.id }}"
+    device_index: 1
+    subnet_id: "{{ subnet_mgmt.subnet.id }}"
     delete_on_termination: true
     attached: true
     state: present
+  register: eni_mgmt
+
+- debug: ENI
+    var: eni_mgmt
+
+- name: Allocate a new elastic IP to ENI MGMT
+  amazon.aws.ec2_eip:
+    device_id: eni_mgmt.eni_id
+    in_vpc: true
+    state: present
+  register: eip_mgmt
+
+- debug: EIP
+    var: eip_mgmt
 
 - name: Print Infoblox instance details
   ansible.builtin.debug:
-    msg: "Instance DNS name is: {{ ec2_infoblox_instance.instances[0].public_dns_name }} with IP address {{ ec2_infoblox_instance.instances[0].public_ip_address }}"
+    msg: "Instance DNS name is: {{ eip.public_dns }} with IP address {{ eip.public_ip }}"
 
 # Wait for boot ups
 - name: Wait until Infoblox boots up
@@ -116,7 +130,7 @@
     state: started
     timeout: 600
     delay: 30
-    host: "{{ ec2_infoblox_instance.instances[0].public_dns_name }}"
+    host: "{{ eip.public_dns }}"
 
 # - name: Sleep for 30 seconds and continue with play
 #   wait_for:
