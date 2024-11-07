@@ -117,7 +117,7 @@
 - name: Allocate a new Elastic IP to ENI MGMT
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
-    device_id: eni_mgmt.interface.id
+    device_id: "{{ eni_mgmt.interface.id }}"
     #in_vpc: true
     state: present
   register: eip_mgmt
