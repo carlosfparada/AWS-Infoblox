@@ -90,6 +90,7 @@
     network_interfaces_ids: []
     # network:
     #   assign_public_ip: true
+    user_data: "{{ ec2_infoblox_user_data }}"
     tags:
       Name: "{{ ec2_infoblox_instance_name }}"
     state: running
