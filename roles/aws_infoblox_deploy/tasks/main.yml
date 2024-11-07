@@ -84,7 +84,7 @@
     instance_type: "{{ ec2_infoblox_flavor_name }}"
     security_group: "{{ ec2_sg_name }}"
     name: "{{ ec2_infoblox_instance_name }}"
-    key_name: "{{ ec2_infoblox_key_name }}"
+    key_name: "{{ ec2_infoblox_keypair_name }}"
     region: "{{ ec2_vpc_region }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
     # network:
