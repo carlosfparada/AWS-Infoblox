@@ -124,17 +124,17 @@
     state: running
   register: ec2_infoblox_instance
 
-- name: Allocate an Elastic IP to ENI MGMT
+- name: Allocate an Elastic IP to ENI SRV
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
-    device_id: "{{ eni_mgmt.interface.id }}"
+    device_id: "{{ eni_srv.interface.id }}"
     in_vpc: true
     state: present
-  register: eip_mgmt
+  register: eip_srv
 
 - name: Print Infoblox instance details
   ansible.builtin.debug:
-    msg: "Instance IP address {{ eip_mgmt.public_ip }}"
+    msg: "Instance IP address {{ eip_srv.public_ip }}"
 
 # Wait for boot ups
 - name: Wait until Infoblox boots up
@@ -143,4 +143,4 @@
     state: started
     timeout: 600
     delay: 30
-    host: "{{ eip_mgmt.public_ip }}"
+    host: "{{ eip_srv.public_ip }}"
