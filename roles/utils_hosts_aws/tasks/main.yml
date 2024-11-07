@@ -1,0 +1,17 @@
+---
+
+# - name: Refresh inventory
+#   ansible.builtin.meta: refresh_inventory
+
+- name: Get {{ search_pattern }} node
+  set_fact:
+    host_name: "{{ item }}"
+  loop: "{{ groups['all'] }}"
+  when: hostvars[item].tags.Name | regex_search("^{{ search_pattern }}-(.*)$")
+  ignore_errors: true
+
+- name: Add {{ search_pattern }} node to the {{ group_name }} group
+  add_host:
+    name: "{{ host_name }}"
+    groups: "{{ group_name }}"
+  when: infoblox is defined
