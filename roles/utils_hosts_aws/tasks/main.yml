@@ -3,7 +3,7 @@
 # - name: Refresh inventory
 #   ansible.builtin.meta: refresh_inventory
 
-- name: Get {{ host_name }} node
+- name: Get {{ host_pattern }} node
   set_fact:
     host_name: "{{ item }}"
   loop: "{{ groups['all'] }}"
