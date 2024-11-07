@@ -86,7 +86,7 @@
     name: "{{ ec2_infoblox_instance_name }}"
     key_name: "{{ ec2_infoblox_keypair_name }}"
     region: "{{ ec2_vpc_region }}"
-    vpc_subnet_id: "{{ subnet.subnet.id }}"
+    vpc_subnet_id: "{{ subnet_serv.subnet.id }}"
     # network:
     #   assign_public_ip: true
     tags:
