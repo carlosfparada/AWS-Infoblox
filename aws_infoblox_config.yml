@@ -1,6 +1,6 @@
 ---
 
-- name: Get dynamic nodes name from inventory and assign them to groups
+- name: Get nodes from Inventory and add to Groups
   hosts: localhost
   connection: local
   gather_facts: no
