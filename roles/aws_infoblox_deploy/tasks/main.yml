@@ -78,7 +78,7 @@
     region: "{{ ec2_vpc_region }}"
   register: ami_infoblox_find
 
-- name: Create FortiGate instance
+- name: Create Infoblox instance
   amazon.aws.ec2_instance:
     image_id: "{{ ami_infoblox_find.images[-1].image_id | default('') }}"
     instance_type: "{{ ec2_infoblox_flavor_name }}"
@@ -110,8 +110,9 @@
   debug:
     var: eni_mgmt
 
-- name: Allocate a new elastic IP to ENI MGMT
+- name: Allocate a new Elastic IP to ENI MGMT
   amazon.aws.ec2_eip:
+    region: "{{ ec2_vpc_region }}"
     device_id: eni_mgmt.eni_id
     in_vpc: true
     state: present
