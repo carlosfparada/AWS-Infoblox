@@ -7,19 +7,19 @@
       "tag:Name": "{{ ec2_vpc_name }}"
   register: vpc
 
-- name: Query Subnet SRV
-  amazon.aws.ec2_vpc_subnet_info:
-    region: "{{ ec2_vpc_region }}"
-    filters:
-      "tag:Name": "{{ ec2_subnet_name_srv }}"
-  register: subnet_srv
-
 - name: Query Subnet MGMT
   amazon.aws.ec2_vpc_subnet_info:
     region: "{{ ec2_vpc_region }}"
     filters:
       "tag:Name": "{{ ec2_subnet_name_mgmt }}"
   register: subnet_mgmt
+
+- name: Query Subnet SRV
+  amazon.aws.ec2_vpc_subnet_info:
+    region: "{{ ec2_vpc_region }}"
+    filters:
+      "tag:Name": "{{ ec2_subnet_name_srv }}"
+  register: subnet_srv
 
 - name: Query ENI MGMT
   amazon.aws.ec2_eni_info:
@@ -51,14 +51,6 @@
       "tag:Name": "{{ ec2_infoblox_instance_name }}"
     state: absent
 
-- name: Delete ENI SRV
-  amazon.aws.ec2_eni:
-    name: "{{ ec2_eni_name_srv }}"
-    subnet_id: "{{ subnet_srv.subnets[0].subnet_id }}"
-    region: "{{ ec2_vpc_region }}"
-    state: absent
-  when: subnet_srv.subnets | length > 0
-  
 - name: Delete ENI MGMT
   amazon.aws.ec2_eni:
     name: "{{ ec2_eni_name_mgmt }}"
@@ -67,19 +59,19 @@
     state: absent
   when: subnet_mgmt.subnets | length > 0
 
+- name: Delete ENI SRV
+  amazon.aws.ec2_eni:
+    name: "{{ ec2_eni_name_srv }}"
+    subnet_id: "{{ subnet_srv.subnets[0].subnet_id }}"
+    region: "{{ ec2_vpc_region }}"
+    state: absent
+  when: subnet_srv.subnets | length > 0
+  
 - name: Delete Security Group
   amazon.aws.ec2_group:
     name: "{{ ec2_sg_name }}"
     region: "{{ ec2_vpc_region }}"
     state: absent
-
-- name: Delete Subnet SRV in VPC
-  amazon.aws.ec2_vpc_subnet:
-    vpc_id: "{{ vpc.vpcs[0].id }}"
-    cidr: "{{ subnet_srv.subnets[0].cidr_block }}"
-    region: "{{ ec2_vpc_region }}"
-    state: absent
-  when: vpc.vpcs | length > 0 and subnet_srv.subnets | length > 0
 
 - name: Delete Subnet MGMT in VPC
   amazon.aws.ec2_vpc_subnet:
@@ -88,6 +80,14 @@
     region: "{{ ec2_vpc_region }}"
     state: absent
   when: vpc.vpcs | length > 0 and subnet_mgmt.subnets | length > 0
+
+- name: Delete Subnet SRV in VPC
+  amazon.aws.ec2_vpc_subnet:
+    vpc_id: "{{ vpc.vpcs[0].id }}"
+    cidr: "{{ subnet_srv.subnets[0].cidr_block }}"
+    region: "{{ ec2_vpc_region }}"
+    state: absent
+  when: vpc.vpcs | length > 0 and subnet_srv.subnets | length > 0
 
 - name: Delete Route Table
   amazon.aws.ec2_vpc_route_table:
