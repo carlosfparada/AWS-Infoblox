@@ -59,6 +59,7 @@
     region: "{{ ec2_vpc_region }}"
     state: absent
   when: subnet_mgmt.subnets | length > 0
+  ignore errors: true
 
 - name: Delete Subnet SRV in VPC
   amazon.aws.ec2_vpc_subnet:
