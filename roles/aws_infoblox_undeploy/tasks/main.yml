@@ -21,12 +21,12 @@
       "tag:Name": "{{ ec2_subnet_name_srv }}"
   register: subnet_srv
 
-- name: Query ENI MGMT
+- name: Query ENI SRV
   amazon.aws.ec2_eni_info:
     region: "{{ ec2_vpc_region }}"
     filters:
-      "tag:Name": "{{ ec2_eni_name_mgmt }}"
-  register: eni_mgmt
+      "tag:Name": "{{ ec2_eni_name_srv }}"
+  register: eni_srv
 
 - name: Query Route Tables
   amazon.aws.ec2_vpc_route_table_info:
