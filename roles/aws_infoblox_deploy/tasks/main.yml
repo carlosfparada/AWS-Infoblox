@@ -105,6 +105,8 @@
     delete_on_termination: true
     attached: true
     state: present
+    tags:
+      Name: "{{ ec2_eni_name_mgmt }}"
   register: eni_mgmt
 
 - name: ENI
