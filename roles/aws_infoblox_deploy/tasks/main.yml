@@ -114,7 +114,7 @@
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
     device_id: eni_mgmt.interface.id
-    in_vpc: true
+    #in_vpc: true
     state: present
   register: eip_mgmt
 
