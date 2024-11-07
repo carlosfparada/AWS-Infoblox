@@ -110,6 +110,10 @@
   debug:
     var: eni_mgmt
 
+- name: ENI ID
+  debug:
+    var: eni_mgmt.interface.id
+
 - name: Allocate a new Elastic IP to ENI MGMT
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
