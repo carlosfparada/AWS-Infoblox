@@ -38,7 +38,7 @@
       "tag:Name": "{{ ec2_rt_name }}"
   register: rtb
 
-- name: Dellocate a Elastic IP in ENI MGMT
+- name: Dellocate Elastic IP in ENI MGMT
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
     device_id: "{{ eni_mgmt.network_interfaces[0].network_interface_id }}"
