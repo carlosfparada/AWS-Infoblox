@@ -1,24 +1,24 @@
 # VPC
-ec2_vpc_name: VPC
+ec2_vpc_name: VPC_IB
 ec2_vpc_region: us-east-1
 ec2_vpc_cidr: 10.0.0.0/16
 # Subnets
 ec2_subnet_az: us-east-1a
-ec2_subnet_name_srv: Subnet-SRV
+ec2_subnet_name_srv: Subnet_IB_SRV
 ec2_subnet_cidr_srv: 10.0.1.0/24
-ec2_subnet_name_mgmt: Subnet-MGMT
+ec2_subnet_name_mgmt: Subnet_IB_MGMT
 ec2_subnet_cidr_mgmt: 10.0.2.0/24
 # ENIs
-ec2_eni_name_srv: ENI_SRV
-ec2_eni_name_mgmt: ENI_MGMT
+ec2_eni_name_srv: ENI_IB_SRV
+ec2_eni_name_mgmt: ENI_IB_MGMT
 # Elastic IP
-ec2_eip_name_mgmt: EIP_MGMT
+ec2_eip_name_mgmt: EIP_IB_MGMT
 # IGW
-ec2_igw_name: IGW1
+ec2_igw_name: IGW_IB
 # Route Table
-ec2_rt_name: RT1
+ec2_rt_name: RT_IB
 # RHEL Open ports
-ec2_sg_name: SG1
+ec2_sg_name: SG_IB
 ec2_sg_openports:
   - 80
   - 443
