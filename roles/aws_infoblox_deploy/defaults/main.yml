@@ -39,3 +39,14 @@ ec2_infoblox_user_data: |
   remote_console_enabled: y
   default_admin_password: {{ ec2_infoblox_admin_pass }}
   temp_license: enterprise dns dhcp cloud nios IB-V825
+volumes:
+  - device_name: /dev/sda1
+    ebs:
+      volume_type: gp3
+      volume_size: 500
+      delete_on_termination: true
+  - device_name: /dev/sdb
+    ebs:
+      volume_type: gp3
+      volume_size: 500
+      delete_on_termination: true
