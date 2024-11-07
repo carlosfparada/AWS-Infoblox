@@ -4,10 +4,10 @@ ec2_vpc_region: us-east-1
 ec2_vpc_cidr: 10.0.0.0/16
 # Subnets
 ec2_subnet_az: us-east-1a
+ec2_subnet_name_mgmt: Subnet_IB_MGMT
+ec2_subnet_cidr_mgmt: 10.0.0.0/24
 ec2_subnet_name_srv: Subnet_IB_SRV
 ec2_subnet_cidr_srv: 10.0.1.0/24
-ec2_subnet_name_mgmt: Subnet_IB_MGMT
-ec2_subnet_cidr_mgmt: 10.0.2.0/24
 # ENIs
 ec2_eni_name_srv: ENI_IB_SRV
 ec2_eni_name_mgmt: ENI_IB_MGMT
