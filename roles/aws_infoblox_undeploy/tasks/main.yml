@@ -34,7 +34,7 @@
 - name: Dellocate a Elastic IP in ENI MGMT
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
-    device_id: "{{ eni_mgmt.network_interface.network_interface_id }}"
+    device_id: "{{ eni_mgmt.network_interfaces.network_interface_id }}"
     in_vpc: true
     state: absent
   register: eip_mgmt
