@@ -104,9 +104,9 @@
     security_groups: "{{ ec2_sg_name }}"
     delete_on_termination: true
     attached: true
-    state: present
     tags:
       Name: "{{ ec2_eni_name_mgmt }}"
+    state: present
   register: eni_mgmt
 
 - name: ENI
