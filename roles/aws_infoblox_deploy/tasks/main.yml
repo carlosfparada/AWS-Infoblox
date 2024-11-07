@@ -125,14 +125,6 @@
     state: present
   register: eni_mgmt
 
-- name: ENI
-  debug:
-    var: eni_mgmt
-
-- name: ENI ID
-  debug:
-    var: eni_mgmt.interface.id
-
 - name: Allocate a new Elastic IP to ENI MGMT
   amazon.aws.ec2_eip:
     region: "{{ ec2_vpc_region }}"
@@ -140,10 +132,6 @@
     in_vpc: true
     state: present
   register: eip_mgmt
-
-- name: EIP
-  debug:
-    var: eip_mgmt
 
 - name: Print Infoblox instance details
   ansible.builtin.debug:
