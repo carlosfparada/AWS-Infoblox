@@ -116,7 +116,7 @@
     name: "{{ ec2_eni_name_mgmt }}"
     region: "{{ ec2_vpc_region }}"
     instance_id: "{{ ec2_infoblox_instance.instances[0].instance_id }}"
-    device_index: 1
+    device_index: 0
     subnet_id: "{{ subnet_mgmt.subnet.id }}"
     security_groups: "{{ ec2_sg_name }}"
     delete_on_termination: true
