@@ -3,5 +3,5 @@
   connection: local
   gather_facts: no
   roles:
-    - aws_vpc_infoblox
+    - aws_infoblox_deploy
   
