@@ -14,14 +14,7 @@
       "tag:Name": "{{ ec2_subnet_name_srv }}"
   register: subnet_srv
 
-- name: Query Subnet MGMT
-  amazon.aws.ec2_vpc_subnet_info:
-    region: "{{ ec2_vpc_region }}"
-    filters:
-      "tag:Name": "{{ ec2_subnet_name_mgmt }}"
-  register: subnet_mgmt
-
-- name: Query ENI 1
+- name: Query ENI MGMT
   amazon.aws.ec2_eni_info:
     region: "{{ ec2_vpc_region }}"
     filters:
@@ -34,6 +27,14 @@
     filters:
       "tag:Name": "{{ ec2_rt_name }}"
   register: rtb
+
+- name: Dellocate a new Elastic IP to ENI MGMT
+  amazon.aws.ec2_eip:
+    region: "{{ ec2_vpc_region }}"
+    device_id: eni_mgmt.interface.id
+    in_vpc: true
+    state: absent
+  register: eip_mgmt
 
 - name: Terminate Infoblox instance
   amazon.aws.ec2_instance:
