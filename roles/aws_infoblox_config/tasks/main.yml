@@ -32,7 +32,7 @@
     provider: "{{ provider }}"
     ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', 'ip_network', provider=provider) }}"
 
-- name: Get Next IPv6 Address
+- name: Get Next IPv4 Address
   debug:
     msg: "Next IP address from Network {{ ip_network }} is {{ ip_address }}"
 
