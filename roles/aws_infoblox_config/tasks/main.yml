@@ -45,14 +45,14 @@
     name: "{{ network_view }}"
     state: present
 
-# - name: Create an IPv4 Container Network {{ ipv4_container }}
-#   infoblox.nios_modules.nios_network:
-#     provider: "{{ provider }}"
-#     network_view: "{{ network_view }}"
-#     network: "{{ ipv4_container }}"
-#     comment: "Container Network {{ ipv4_container }}"
-#     container: true
-#     state: present
+- name: Create an IPv4 Container Network {{ ipv4_container }}
+  infoblox.nios_modules.nios_network:
+    provider: "{{ provider }}"
+    network_view: "{{ network_view }}"
+    network: "{{ ipv4_container }}"
+    comment: "Container Network {{ ipv4_container }}"
+    container: true
+    state: present
 
 - name: Get Next Available Network from Network Container {{ ipv4_container }}
   ansible.builtin.set_fact:
