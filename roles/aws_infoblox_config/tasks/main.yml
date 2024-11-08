@@ -1,6 +1,6 @@
 ---
 
-- name: Get Infoblox Public IPv4
+- name: Set Provider Infoblox Data (Public IP, Username, Password) 
   set_fact:
     provider:
       host: "{{ hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip }}"
