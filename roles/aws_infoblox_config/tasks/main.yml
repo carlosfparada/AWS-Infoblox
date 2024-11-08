@@ -61,8 +61,8 @@
 - name: Create an IPv4 Network {{ ipv4_network }}
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
-#    network_view: "{{ network_view }}"
-    network: "{{ ipv4_network }}"
+    network_view: "{{ network_view }}"
+    network: "192.168.10.0/24" # "{{ ipv4_network }}"
     comment: "Created Network {{ ipv4_network }}"
     state: present
 
