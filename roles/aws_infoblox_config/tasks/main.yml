@@ -11,6 +11,20 @@
   debug:
     var: provider
 
+- name: Get Existing Network Views
+  ansible.builtin.set_fact:
+    network_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'networkview', provider=provider) }}"
+
+- name: For the single network view particular case (it returns a dict)
+  set_fact:
+    network_views: "{{ [ network_views ] }}"
+  when: network_views | type_debug != "list"
+
+- name: Debug Existing Network Views
+  debug:
+    msg: "Network Views: {{ item.networkviews }}"
+  loop: "{{ network_views }}"
+
 - name: Get Existing Networks
   ansible.builtin.set_fact:
     networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
@@ -24,6 +38,12 @@
   debug:
     msg: "Network: {{ item.network }}"
   loop: "{{ networks }}"
+
+- name: Create a Network View {{ network_view }}
+  infoblox.nios_modules.nios_network_view:
+    provider: "{{ provider }}"
+    name: "{{ network_view }}"
+    state: present
 
 # - name: Create an IPv4 Container Network {{ ipv4_container }}
 #   infoblox.nios_modules.nios_network:
@@ -40,6 +60,7 @@
 - name: Create an IPv4 Network {{ ipv4_network }}
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
+    network_view: "{{ network_view }}"
     network: "{{ ipv4_network }}"
     comment: "Created Network {{ ipv4_network }}"
     state: present
@@ -62,4 +83,10 @@
 #     provider: "{{ provider }}"
 #     network: "{{ ipv4_network }}"
 #     comment: "Deleted Network {{ ipv4_network }}"
+#     state: absent
+
+# - name: Delete a Network View {{ network_view }}
+#   infoblox.nios_modules.nios_network_view:
+#     provider: "{{ provider }}"
+#     name: "{{ network_view }}"
 #     state: absent
