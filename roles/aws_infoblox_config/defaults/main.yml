@@ -4,4 +4,5 @@ username: admin
 password: "admin123$%&"
 
 ipv4_container: 192.168.0.0/16
-ipv4_network: 192.168.10.0/24
+ipv4_network: 192.168.1.0
+ipv4_network_cidr: 24
