@@ -2,7 +2,7 @@
 
 - name: Get existing IPv4 Networks
   ansible.builtin.set_fact:
-    networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', 'provider'=provider) }}"
+    networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
 
 - name: Debug existing networks
   debug:
