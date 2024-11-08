@@ -4,7 +4,8 @@
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
     network: "{{ ip_network }}"
-    comment: "Network {{ ip_network }}"
+    comment: "Network {{ ipv4_network }}"
+    state: present
 
 
 - name: Get Next IPv4 Address from Network {{ ip_network }}
