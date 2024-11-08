@@ -144,3 +144,8 @@
     timeout: 3600
     delay: 30
     host: "{{ eip_srv.public_ip }}"
+
+- name: Sleep for 30 seconds and continue
+  wait_for:
+    timeout: 30
+  
