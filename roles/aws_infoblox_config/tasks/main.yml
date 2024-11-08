@@ -11,7 +11,7 @@
   debug:
     var: provider
 
-- name: Get Existing IPv4 Networks
+- name: Get Existing Networks
   ansible.builtin.set_fact:
     networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
 
@@ -30,11 +30,11 @@
 - name: Get Next IPv4 Address from Network {{ ip_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
-    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', 'ip_network', provider=provider) }}"
+    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, provider=provider) }}"
 
 - name: Get Next IPv4 Address
   debug:
-    msg: "Next IP address from Network {{ ip_network }} is {{ ip_address }}"
+    msg: "Next IPv4 address from Network {{ ip_network }} is {{ ip_address }}"
 
 - name: Delete an IPv4 Network
   infoblox.nios_modules.nios_network:
