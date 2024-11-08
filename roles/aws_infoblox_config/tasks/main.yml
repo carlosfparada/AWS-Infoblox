@@ -22,7 +22,7 @@
 
 - name: Debug Existing Network Views
   debug:
-    msg: "Network Views: {{ item.networkviews }}"
+    msg: "Network Views: {{ item.name }}"
   loop: "{{ network_views }}"
 
 - name: Get Existing Networks
