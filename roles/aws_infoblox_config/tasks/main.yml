@@ -7,7 +7,7 @@
     comment: "Network {{ ipv4_network }}"
     state: present
 
-- name: Configure an IPv4 Network
+- name: Create an IPv4 Network
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
     network: "{{ ipv4_network }}"
@@ -23,7 +23,7 @@
   debug:
     msg: "Next IP address from Network {{ ip_network }} is {{ ip_address }}"
 
-- name: Configure an IPv4 Network
+- name: Delete an IPv4 Network
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
     network: "{{ ipv4_network }}"
