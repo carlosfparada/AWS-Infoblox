@@ -1,8 +1,20 @@
 ---
 
-- name: Debug existing networks
+- name: Debug vars
   debug:
-    msg: "{{ ansible_hostname }} , {{ ansible_host }}, {{ groups['infoblox'].ansible_hostname }} , {{ groups['infoblox'].ansible_host }}"
+    msg: "{{ inventory_hostname }}"
+
+- name: Debug vars
+  debug:
+    msg: "{{ ansible_host }}"
+
+- name: Debug vars
+  debug:
+    msg: "{{ groups['infoblox'].inventory_hostname }}
+
+- name: Debug vars
+  debug:
+    msg: "{{ groups['infoblox'].ansible_host }}"
 
 - name: Get existing IPv4 Networks
   ansible.builtin.set_fact:
