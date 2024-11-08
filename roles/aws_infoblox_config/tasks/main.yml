@@ -27,7 +27,7 @@
 
 - name: Get Existing Networks
   ansible.builtin.set_fact:
-    networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
+    networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', network_view=network_view, provider=provider) }}"
 
 - name: For the single network particular case (it returns a dict)
   set_fact:
@@ -48,6 +48,7 @@
 # - name: Create an IPv4 Container Network {{ ipv4_container }}
 #   infoblox.nios_modules.nios_network:
 #     provider: "{{ provider }}"
+#     network_view: "{{ network_view }}"
 #     network: "{{ ipv4_container }}"
 #     comment: "Container Network {{ ipv4_container }}"
 #     container: true
@@ -55,7 +56,7 @@
 
 - name: Get Next Available Network from Network Container {{ ipv4_container }}
   ansible.builtin.set_fact:
-    ipv4_network: "{{ lookup('infoblox.nios_modules.nios_next_network', ipv4_container, ipv4_network_cidr, provider=provider) }}"
+    ipv4_network: "{{ lookup('infoblox.nios_modules.nios_next_network', ipv4_container, ipv4_network_cidr, network_view=network_view, provider=provider) }}"
 
 - name: Create an IPv4 Network {{ ipv4_network }}
   infoblox.nios_modules.nios_network:
@@ -72,7 +73,7 @@
 - name: Get Next IPv4 Address from Network {{ ipv4_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
-    ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, num=1, exclude=[], provider=provider) }}"
+    ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, network_view=network_view, num=1, exclude=[], provider=provider) }}"
 
 - name: Debug Next IPv4 Address {{ ipv4_address }}
   debug:
@@ -81,6 +82,7 @@
 # - name: Delete an IPv4 Network {{ ipv4_network }}
 #   infoblox.nios_modules.nios_network:
 #     provider: "{{ provider }}"
+#     network_view: "{{ network_view }}"
 #     network: "{{ ipv4_network }}"
 #     comment: "Deleted Network {{ ipv4_network }}"
 #     state: absent
