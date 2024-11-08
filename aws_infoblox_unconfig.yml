@@ -1,0 +1,60 @@
+---
+
+- name: Get nodes from Inventory and add to Groups
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+  - include_role: 
+      name: utils_hosts_aws
+
+- name: AWS Infoblox config
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Set Provider Infoblox Data
+      set_fact:
+        provider:
+          host: "{{ hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+
+    - name: Debug Provider Infoblox Data (Public IP, Username, Password) 
+      debug:
+        var: provider
+
+    # - name: Delete IPv4 Fixed Address {{ ipv4_address }}
+    #   infoblox.nios_modules.nios_fixed_address:
+    #     provider: "{{ provider }}"
+    #     network_view: "{{ network_view }}"
+    #     network: "{{ ipv4_network }}"
+    #     name: "{{ hostname }}"
+    #     ipaddr: "{{ ipv4_address }}"
+    #     mac: "{{ mac_address }}"
+    #     comment: "Deleted Fixed IPv4 Address {{ ipv4_network }}"
+    #     state: absent
+
+    # - name: Delete an IPv4 Network {{ ipv4_network }}
+    #   infoblox.nios_modules.nios_network:
+    #     provider: "{{ provider }}"
+    #     network_view: "{{ network_view }}"
+    #     network: "{{ ipv4_network }}"
+    #     comment: "Deleted Network {{ ipv4_network }}"
+    #     state: absent
+
+    - name: Delete an IPv4 Container Network {{ ipv4_container }}
+      infoblox.nios_modules.nios_network:
+        provider: "{{ provider }}"
+        network_view: "{{ network_view }}"
+        network: "{{ ipv4_container }}"
+        comment: "Deleted Container Network {{ ipv4_container }}"
+        container: true
+        state: absent
+
+    - name: Delete a Network View {{ network_view }}
+      infoblox.nios_modules.nios_network_view:
+        provider: "{{ provider }}"
+        name: "{{ network_view }}"
+        state: absent
+  

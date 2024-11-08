@@ -1,0 +1,53 @@
+---
+
+- name: Get nodes from Inventory and add to Groups
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+  - include_role: 
+      name: utils_hosts_aws
+
+- name: AWS Infoblox config
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Set Provider Infoblox Data
+      set_fact:
+        provider:
+          host: "{{ hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+
+    - name: Debug Provider Infoblox Data (Public IP, Username, Password) 
+      debug:
+        var: provider
+
+    - name: Get Existing Network Views
+      ansible.builtin.set_fact:
+        network_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'networkview', provider=provider) }}"
+
+    - name: For the single network view particular case (it returns a dict)
+      set_fact:
+        network_views: "{{ [ network_views ] }}"
+      when: network_views | type_debug != "list"
+
+    - name: Debug Existing Network Views
+      debug:
+        msg: "Network Views: {{ item.name }}"
+      loop: "{{ network_views }}"
+
+    - name: Get Existing Networks
+      ansible.builtin.set_fact:
+        networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', network_view=network_view, provider=provider) }}"
+
+    - name: For the single network particular case (it returns a dict)
+      set_fact:
+        networks: "{{ [ networks ] }}"
+      when: networks | type_debug != "list"
+
+    - name: Debug Existing Networks
+      debug:
+        msg: "Network: {{ item.network }}"
+      loop: "{{ networks }}"
