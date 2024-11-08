@@ -51,7 +51,7 @@
 - name: Get Next IPv4 Address from Network {{ ipv4_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
-    ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, provider=provider) }}"
+    ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, num=1, exclude=[], provider=provider) }}"
 
 - name: Debug Next IPv4 Address {{ ipv4_address }}
   debug:
