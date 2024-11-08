@@ -39,7 +39,7 @@ ec2_infoblox_image_id: ami-0622a3d7a285429de
 ec2_infoblox_image_name: Infoblox NIOS 9.0.5(BYOL)-3d6f2259-6756-484c-ac5e-f2d9330afe95
 ec2_infoblox_flavor_name: m5.large #m6i.2xlarge 
 ec2_infoblox_keypair_name: "KeyPair-Virginia"
-ec2_infoblox_admin_pass: "admin123$%&"
+ec2_infoblox_admin_pass: "{{ ansible_ssh_pass }}"
 volumes:
   - device_name: /dev/sda1
     ebs:
@@ -57,8 +57,8 @@ volumes:
 # Infoblox #
 ############
 
-username: admin
-password: "admin123$%&"
+username: "{{ ansible_user }}"
+password: "{{ ansible_ssh_pass }}"
 
 network_view: MyNetworkView
 ipv4_container: 192.168.0.0/16
