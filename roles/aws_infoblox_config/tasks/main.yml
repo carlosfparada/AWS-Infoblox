@@ -1,11 +1,12 @@
 ---
 
 - name: Get existing IPv4 Networks
-  infoblox.nios_modules.nios_network:
-    provider: "{{ provider }}"
-    network: "{{ ipv4_network }}"
-    comment: "Network {{ ipv4_network }}"
-    state: present
+  ansible.builtin.set_fact:
+    networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', 'provider'=provider) }}"
+
+- name: Debug existing networks
+  debug:
+    var: networks
 
 - name: Create an IPv4 Network
   infoblox.nios_modules.nios_network:
