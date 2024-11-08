@@ -3,15 +3,15 @@
 # - name: Refresh inventory
 #   ansible.builtin.meta: refresh_inventory
 
-- name: Get {{ host_pattern }} node
+- name: Get infoblox node
   set_fact:
-    host_name: "{{ item }}"
+    node_name: "{{ item }}"
   loop: "{{ groups['all'] }}"
   when: hostvars[item].tags.Name | regex_search("^infoblox-(.*)$")
   ignore_errors: true
 
-- name: Add {{ host_name }} node to the {{ group_name }} group
+- name: Add infoblox node to the infoblox group
   add_host:
-    name: "{{ host_name }}"
-    groups: "{{ group_name }}"
+    name: "{{ node_name }}"
+    groups: "infoblox"
   when: infoblox is defined
