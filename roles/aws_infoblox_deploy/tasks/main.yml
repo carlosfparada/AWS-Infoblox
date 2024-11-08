@@ -134,7 +134,7 @@
 
 - name: Print Infoblox instance details
   ansible.builtin.debug:
-    msg: "Instance UI console http://{{ eip_srv.public_ip }}"
+    msg: "Instance UI console: https://{{ eip_srv.public_ip }}"
 
 # Wait for boot ups
 - name: Wait until Infoblox boots up
