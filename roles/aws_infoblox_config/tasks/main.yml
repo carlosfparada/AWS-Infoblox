@@ -1,12 +1,12 @@
 ---
 
+- name: Debug existing networks
+  debug:
+    msg: "{{ ansible_hostname }} , {{ ansible_host }}, {{ groups['infoblox'].ansible_hostname }} , {{ groups['infoblox'].ansible_host }}"
+
 - name: Get existing IPv4 Networks
   ansible.builtin.set_fact:
     networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
-
-- name: Debug existing networks
-  debug:
-    msg: "{{ ansible_hostname }} , {{ ansible_host }}"
 
 - name: Debug existing networks
   debug:
