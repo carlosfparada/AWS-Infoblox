@@ -15,9 +15,9 @@
   ansible.builtin.set_fact:
     networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
 
-- name: For single network case (it returns a )
+- name: For the single network particualr case (it returns a dict)
   set fact:
-    networks: [ "{{ networks }}" ]
+    networks: "[ networks ]"
   when: networks | type_debug != "list"
 
 - name: Debug Existing Networks
