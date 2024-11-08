@@ -88,9 +88,9 @@
     network_view: default
     name: host address
     ipaddr: "{{ ipv4_address }}"
-    #mac: 08:6d:41:e8:fd:e8
     comment: "Created Host {{ ipv4_network }}"
     state: present
+
 
 
 # - name: Delete an IPv4 Network {{ ipv4_network }}
