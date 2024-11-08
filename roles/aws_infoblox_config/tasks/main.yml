@@ -75,7 +75,7 @@
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
     ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, network_view=network_view,
-    num=1, exclude=[], provider=provider) }}"
+    num=1, exclude=ipv4_excluded_addresses, provider=provider) }}"
 
 - name: Debug Next IPv4 Address {{ ipv4_address }}
   debug:
