@@ -84,8 +84,6 @@
 - name: Create IPv4 Address Record for a Host {{ ipv4_address }}
   infoblox.nios_modules.nios_host_record:
     provider: "{{ provider }}"
-    network_view: "{{ network_view }}"
-    network: "{{ ipv4_network }}"
     comment: "Created Host {{ ipv4_network }}"
     name: host1.ansible.com
     ipv4:
