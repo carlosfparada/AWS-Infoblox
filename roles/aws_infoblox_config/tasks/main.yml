@@ -1,23 +1,24 @@
 ---
 
-- name: Set Provider Infoblox Data (Public IP, Username, Password) 
+- name: Set Provider Infoblox Data
   set_fact:
     provider:
       host: "{{ hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip }}"
       username: "{{ username }}"
       password: "{{ password }}"
 
-- name: Debug Infoblox Public IPv4
+- name: Debug Provider Infoblox Data (Public IP, Username, Password) 
   debug:
     var: provider
 
-- name: Get existing IPv4 Networks
+- name: Get Existing IPv4 Networks
   ansible.builtin.set_fact:
     networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
 
-- name: Debug existing networks
+- name: Debug Existing Networks
   debug:
-    var: networks
+    msg: "Network: {{ item.network }}"
+  loop: "{{ networks }}"
 
 - name: Create an IPv4 Network
   infoblox.nios_modules.nios_network:
