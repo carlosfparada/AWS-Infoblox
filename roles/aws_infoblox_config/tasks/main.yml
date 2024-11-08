@@ -10,7 +10,7 @@
 
 - name: Debug vars
   debug:
-    msg: "{{ groups['infoblox'].inventory_hostname }}
+    msg: "{{ groups['infoblox'].inventory_hostname }}"
 
 - name: Debug vars
   debug:
