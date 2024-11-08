@@ -36,9 +36,9 @@
   debug:
     msg: "Next IPv4 address from Network {{ ipv4_network }} is {{ ip_address }}"
 
-- name: Delete an IPv4 Network {{ ipv4_network }}
-  infoblox.nios_modules.nios_network:
-    provider: "{{ provider }}"
-    network: "{{ ipv4_network }}"
-    comment: "Network {{ ipv4_network }}"
-    state: absent
+# - name: Delete an IPv4 Network {{ ipv4_network }}
+#   infoblox.nios_modules.nios_network:
+#     provider: "{{ provider }}"
+#     network: "{{ ipv4_network }}"
+#     comment: "Network {{ ipv4_network }}"
+#     state: absent
