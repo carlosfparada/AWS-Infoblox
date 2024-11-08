@@ -25,6 +25,14 @@
     msg: "Network: {{ item.network }}"
   loop: "{{ networks }}"
 
+- name: Create an IPv4 Container Network {{ ipv4_container }}
+  infoblox.nios_modules.nios_network:
+    provider: "{{ provider }}"
+    network: "{{ ipv4_container }}"
+    comment: "Container Network {{ ipv4_container }}"
+    container: true
+    state: present
+
 - name: Create an IPv4 Network {{ ipv4_network }}
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
