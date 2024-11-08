@@ -1,7 +1,7 @@
 ---
 
 provider:
-  host: "{{ infoblox_ip }}"
+  host: "{{ infoblox_public_ip }}"
   username: admin
   password: "admin123$%&"
 

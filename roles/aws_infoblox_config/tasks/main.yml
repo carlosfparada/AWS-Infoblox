@@ -1,12 +1,12 @@
 ---
 
-- name: Debug vars
+- name: Get Infoblox Public IPv4
   set_fact:
-    infoblox_ip: hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip
+    infoblox_public_ip: hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip
 
-- name: Debug vars
+- name: Get Infoblox Public IPv4
   debug:
-    msg: "{{ groups['infoblox'].ansible_host }}"
+    msg: "Infoblox Public IPv4: {{ infoblox_public_ip }}"
 
 - name: Get existing IPv4 Networks
   ansible.builtin.set_fact:
