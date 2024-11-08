@@ -84,9 +84,9 @@
 - name: Create IPv4 Fixed Address {{ ipv4_address }}
   infoblox.nios_modules.nios_fixed_address:
     provider: "{{ provider }}"
-    network: 192.168.10.0/24
-    network_view: default
-    name: host1.redhat.com
+    network_view: "{{ network_view }}"
+    network: "{{ ipv4_network }}"
+    name: "{{ hostname }}"
     ipaddr: "{{ ipv4_address }}"
     mac: "{{ mac_address }}"
     comment: "Created Host {{ ipv4_network }}"
