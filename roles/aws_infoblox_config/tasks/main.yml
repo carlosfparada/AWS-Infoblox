@@ -10,7 +10,7 @@
 - name: Get Next IP address from Network {{ ip_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
-    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ip_network', 'provider'=provider }}"
+    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ip_network', 'provider'=provider) }}"
 
 - name: Next IP address from Network {{ ip_network }} is {{ ip_address }}
   debug:
