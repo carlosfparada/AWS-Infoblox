@@ -1,9 +1,7 @@
 ---
 
-provider:
-  host: "{{ infoblox_public_ip }}"
-  username: admin
-  password: "admin123$%&"
+username: admin
+password: "admin123$%&"
 
 ipv4_container: 192.168.0.0/16
 ipv4_network: 192.168.10.0/24
