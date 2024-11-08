@@ -1,17 +1,17 @@
 ---
 
-- name: Configure a network ipv4
+- name: Configure an IPv4 Network
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
     network: "{{ ip_network }}"
     comment: "Network {{ ip_network }}"
 
 
-- name: Get Next IP address from Network {{ ip_network }}
+- name: Get Next IPv4 Address from Network {{ ip_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
     ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ip_network', 'provider'=provider) }}"
 
-- name: Next IP address
+- name: Get Next IPv6 Address
   debug:
     msg: "Next IP address from Network {{ ip_network }} is {{ ip_address }}"
