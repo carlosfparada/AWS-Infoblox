@@ -1,4 +1,4 @@
 ---
 
-node_pattern: "infoblox"
+#node_pattern: "infoblox"
 group_name: "infoblox"

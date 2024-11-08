@@ -13,5 +13,5 @@
 - name: Add infoblox node to the infoblox group
   add_host:
     name: "{{ node_name }}"
-    groups: "infoblox"
-  when: infoblox is defined
+    groups: "{{ group_name }}"
+  when: node_name is defined

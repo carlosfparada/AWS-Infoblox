@@ -6,6 +6,10 @@
 
 - name: Debug existing networks
   debug:
+    msg: "{{ ansible_hostname }} , {{ ansible_host }}"
+
+- name: Debug existing networks
+  debug:
     var: networks
 
 - name: Create an IPv4 Network
