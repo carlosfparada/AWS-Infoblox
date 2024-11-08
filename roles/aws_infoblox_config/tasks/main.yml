@@ -33,16 +33,16 @@
     container: true
     state: present
 
-# - name: Create an IPv4 Network {{ ipv4_network }}/{{ ipv4_network_cidr }}
-#   infoblox.nios_modules.nios_network:
-#     provider: "{{ provider }}"
-#     network: "{{ ipv4_network }}/{{ ipv4_network_cidr }}"
-#     comment: "Created Network {{ ipv4_network }}/{{ ipv4_network_cidr }}"
-#     state: present
-
 - name: Get Next Available Network from Network Container {{ ipv4_container }}
   ansible.builtin.set_fact:
     ipv4_network: "{{ lookup('infoblox.nios_modules.nios_next_network', ipv4_container, ipv4_network_cidr, provider=provider) }}"
+
+- name: Create an IPv4 Network {{ ipv4_network }}/{{ ipv4_network_cidr }}
+  infoblox.nios_modules.nios_network:
+    provider: "{{ provider }}"
+    network: "{{ ipv4_network }}/{{ ipv4_network_cidr }}"
+    comment: "Created Network {{ ipv4_network }}/{{ ipv4_network_cidr }}"
+    state: present
 
 - name: Debug Next Available IPv4 Network {{ ipv4_network }}
   debug:
