@@ -5,18 +5,7 @@ password: "admin123$%&"
 
 network_view: MyNetworkView
 ipv4_container: 192.168.0.0/16
-ipv4_excluded_networks:
-  - "192.168.0.0/24"
-  - "192.168.1.0/24"
-  - "192.168.2.0/24"
-  - "192.168.3.0/24"
-  - "192.168.4.0/24"
-  - "192.168.5.0/24"
-  - "192.168.6.0/24"
-  - "192.168.7.0/24"
-  - "192.168.8.0/24"
-  - "192.168.9.0/24"
+ipv4_excluded_networks: []
 #ipv4_network: 192.168.1.0/24
 ipv4_network_cidr: 24
-ipv4_excluded_addresses:
-  - "192.168.0.0"
+ipv4_excluded_addresses: []
