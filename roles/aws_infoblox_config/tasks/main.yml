@@ -20,23 +20,23 @@
     msg: "Network: {{ item.network }}"
   loop: "{{ networks }}"
 
-- name: Create an IPv4 Network
+- name: Create an IPv4 Network {{ ipv4_network }}
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
     network: "{{ ipv4_network }}"
     comment: "Network {{ ipv4_network }}"
     state: present
 
-- name: Get Next IPv4 Address from Network {{ ip_network }}
+- name: Get Next IPv4 Address from Network {{ ipv4_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
     ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, provider=provider) }}"
 
-- name: Get Next IPv4 Address
+- name: Debug Next IPv4 Address {{ ip_address }}
   debug:
-    msg: "Next IPv4 address from Network {{ ip_network }} is {{ ip_address }}"
+    msg: "Next IPv4 address from Network {{ ipv4_network }} is {{ ip_address }}"
 
-- name: Delete an IPv4 Network
+- name: Delete an IPv4 Network {{ ipv4_network }}
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
     network: "{{ ipv4_network }}"
