@@ -10,7 +10,8 @@
 
 - name: Debug vars
   debug:
-    var: hostvars[groups['infoblox']]
+    var: hostvars[groups['infoblox'][0]]
+#        ip: "{{ hostvars[groups['fortigate'][0]].private_ip_address }}"
 
 - name: Debug vars
   debug:
