@@ -18,7 +18,7 @@
 - name: Get Next IPv4 Address from Network {{ ip_network }}
   ansible.builtin.set_fact:
     provider: "{{ provider }}"
-    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ip_network', 'provider'=provider) }}"
+    ip_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', 'ip_network', 'provider'=provider) }}"
 
 - name: Get Next IPv6 Address
   debug:
