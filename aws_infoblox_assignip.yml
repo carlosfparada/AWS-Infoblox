@@ -26,54 +26,6 @@
       debug:
         var: provider
 
-    - name: Get Existing Network Views
-      ansible.builtin.set_fact:
-        network_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'networkview', provider=provider) }}"
-
-    - name: For the single network view particular case (it returns a dict)
-      set_fact:
-        network_views: "{{ [ network_views ] }}"
-      when: network_views | type_debug != "list"
-
-    - name: Debug Existing Network Views
-      debug:
-        msg: "Network Views: {{ item.name }}"
-      loop: "{{ network_views }}"
-
-    - name: Get Existing Networks
-      ansible.builtin.set_fact:
-        networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', network_view=network_view, provider=provider) }}"
-
-    - name: For the single network particular case (it returns a dict)
-      set_fact:
-        networks: "{{ [ networks ] }}"
-      when: networks | type_debug != "list"
-
-    - name: Debug Existing Networks
-      debug:
-        msg: "Network: {{ item.network }}"
-      loop: "{{ networks }}"
-
-    - name: Create a Network View {{ network_view }}
-      infoblox.nios_modules.nios_network_view:
-        provider: "{{ provider }}"
-        name: "{{ network_view }}"
-        state: present
-
-    - name: Create an IPv4 Container Network {{ ipv4_container }}
-      infoblox.nios_modules.nios_network:
-        provider: "{{ provider }}"
-        network_view: "{{ network_view }}"
-        network: "{{ ipv4_container }}"
-        comment: "Container Network {{ ipv4_container }}"
-        container: true
-        state: present
-
-    - name: Get Next Available Network from Network Container {{ ipv4_container }}
-      ansible.builtin.set_fact:
-        ipv4_network: "{{ lookup('infoblox.nios_modules.nios_next_network', ipv4_container, ipv4_network_cidr,
-          num=1, exclude=ipv4_excluded_networks, network_view=network_view, provider=provider)[0] }}"
-
     - name: Create an IPv4 Network {{ ipv4_network }}
       infoblox.nios_modules.nios_network:
         provider: "{{ provider }}"
