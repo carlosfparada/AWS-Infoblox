@@ -2,15 +2,7 @@
 
 - name: Debug vars
   debug:
-    msg: "{{ inventory_hostname }}"
-
-- name: Debug vars
-  debug:
-    msg: "{{ ansible_host }}"
-
-- name: Debug vars
-  debug:
-    var: hostvars[groups['infoblox'][0]]
+    var: hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip
 #        ip: "{{ hostvars[groups['fortigate'][0]].private_ip_address }}"
 
 - name: Debug vars
