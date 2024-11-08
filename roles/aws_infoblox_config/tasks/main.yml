@@ -16,7 +16,7 @@
     networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', provider=provider) }}"
 
 - name: For the single network particular case (it returns a dict)
-  set fact:
+  set_fact:
     networks: "{{ networks | list }}"
   when: networks | type_debug != "list"
 
