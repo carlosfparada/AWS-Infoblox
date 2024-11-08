@@ -10,7 +10,7 @@
 
 - name: Debug vars
   debug:
-    var: hostvars(groups['infoblox'])
+    var: hostvars[groups['infoblox']]
 
 - name: Debug vars
   debug:
