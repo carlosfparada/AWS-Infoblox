@@ -81,28 +81,17 @@
   debug:
     msg: "Next IPv4 address from Network {{ ipv4_network }} is {{ ipv4_address }}"
 
-- name: Create IPv4 Address Record for a Host {{ ipv4_address }}
-  infoblox.nios_modules.nios_host_record:
+- name: Create IPv4 Fixed Address {{ ipv4_address }}
+  infoblox.nios_modules.nios_fixed_address:
     provider: "{{ provider }}"
+    network: 192.168.10.0/24
+    network_view: default
+    name: host address
+    ipaddr: "{{ ipv4_address }}"
+    #mac: 08:6d:41:e8:fd:e8
     comment: "Created Host {{ ipv4_network }}"
-    name: host1.ansible.com
-    ipv4:
-      - address: "{{ ipv4_address }}"
-    aliases:
-    name: host1.redhat.com
     state: present
 
-# - name: Delete IPv4 Address Record of a Host {{ ipv4_address }}
-#   infoblox.nios_modules.nios_host_record:
-#     provider: "{{ provider }}"
-#     network_view: "{{ network_view }}"
-#     network: "{{ ipv4_network }}"
-#     name: host1.ansible.com
-#     ipv4:
-#       - address: "{{ ipv4_address }}"
-#     aliases:
-#     name: host1.redhat.com
-#     state: absent
 
 # - name: Delete an IPv4 Network {{ ipv4_network }}
 #   infoblox.nios_modules.nios_network:
