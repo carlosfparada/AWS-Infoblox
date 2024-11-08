@@ -37,13 +37,13 @@
     #     comment: "Deleted Fixed IPv4 Address {{ ipv4_network }}"
     #     state: absent
 
-    - name: Delete an IPv4 Network {{ ipv4_network }}
-      infoblox.nios_modules.nios_network:
-        provider: "{{ provider }}"
-        network_view: "{{ network_view }}"
-        network: "{{ ipv4_network }}"
-        comment: "Deleted Network {{ ipv4_network }}"
-        state: absent
+    # - name: Delete an IPv4 Network {{ ipv4_network }}
+    #   infoblox.nios_modules.nios_network:
+    #     provider: "{{ provider }}"
+    #     network_view: "{{ network_view }}"
+    #     network: "{{ ipv4_network }}"
+    #     comment: "Deleted Network {{ ipv4_network }}"
+    #     state: absent
 
     - name: Delete an IPv4 Container Network {{ ipv4_container }}
       infoblox.nios_modules.nios_network:
