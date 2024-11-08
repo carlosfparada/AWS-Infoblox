@@ -1,8 +1,8 @@
 - name: AWS Infoblox undeploy
   hosts: localhost
   connection: local
-  vars_files: vars/main.yml
   gather_facts: no
+  vars_files: vars/main.yml
   roles:
     - aws_infoblox_undeploy
   

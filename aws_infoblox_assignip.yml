@@ -4,6 +4,7 @@
   hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: vars/main.yml
   tasks:
   - include_role: 
       name: utils_hosts_aws
@@ -12,6 +13,7 @@
   hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: vars/main.yml
   tasks:
     - name: Set Provider Infoblox Data
       set_fact:
