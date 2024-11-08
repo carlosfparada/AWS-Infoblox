@@ -17,7 +17,7 @@
 
 - name: For the single network particular case (it returns a dict)
   set_fact:
-    networks: [ networks ]
+    networks: "{{ [ networks ] }}"
   when: networks | type_debug != "list"
 
 - name: Debug Existing Networks
