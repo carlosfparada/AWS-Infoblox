@@ -3,7 +3,7 @@
 - name: Configure an IPv4 Network
   infoblox.nios_modules.nios_network:
     provider: "{{ provider }}"
-    network: "{{ ip_network }}"
+    network: "{{ ipv4_network }}"
     comment: "Network {{ ipv4_network }}"
     state: present
 
