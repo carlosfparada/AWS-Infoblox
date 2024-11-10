@@ -21,9 +21,11 @@
     - name: Set Provider Infoblox Data
       set_fact:
         provider:
-          host: "{{ hostvars[groups['infoblox'][0]].network_interfaces[1].association.public_ip }}"
+          host: "{{ item.association.public_ip }}"
           username: "{{ username }}"
           password: "{{ password }}"
+      loop: "{{ hostvars[groups['infoblox'][0]].network_interfaces }}"
+      when: item.association is defined and item.association.public_ip is defined
 
     - name: Debug Provider Infoblox Data (Public IP, Username, Password) 
       debug:
