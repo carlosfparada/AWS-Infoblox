@@ -60,5 +60,6 @@
       infoblox.nios_modules.nios_network_view:
         provider: "{{ provider }}"
         name: "{{ network_view }}"
+        comment: "Network View {{ network_view }}"
         state: absent
   
