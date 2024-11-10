@@ -32,7 +32,7 @@
       infoblox.nios_modules.nios_network_view:
         provider: "{{ provider }}"
         name: "{{ network_view }}"
-        comment: "Container View {{ network_view }}"
+        comment: "Network View {{ network_view }}"
         state: present
 
     - name: Create an IPv4 Container Network {{ ipv4_container }}
