@@ -65,7 +65,7 @@
       infoblox.nios_modules.nios_a_record:
         provider: "{{ provider }}"
         name: "{{ ipv4_hostname }}"
-        ipaddr: "{{ ipv4_address }}"
+        ipv4addr: "{{ ipv4_address }}"
         view: "{{ dns_view }}"
         comment: "Created DNS A Record {{ ipv4_hostname }} -> {{ ipv4_address }}"
         state: present
