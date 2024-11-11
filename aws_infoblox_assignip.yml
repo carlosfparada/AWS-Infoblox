@@ -60,3 +60,12 @@
         mac: "{{ mac_address }}"
         comment: "Created Fixed IPv4 Address {{ ipv4_network }}"
         state: present
+
+    - name: Create A Record for {{ ipv4_address }} and {{ ipv4_hostname }}
+      infoblox.nios_modules.nios_fixed_address:
+        provider: "{{ provider }}"
+        name: "{{ ipv4_hostname }}"
+        ipv4_address: "{{ ipv4_address }}"
+        view: "{{ dns_view }}"
+        comment: "Created A Record {{ ipv4_hostname }} to {{ ipv4_address }}"
+        state: present

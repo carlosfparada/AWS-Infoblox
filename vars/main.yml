@@ -68,6 +68,7 @@ ipv4_network: 192.168.10.0/24
 ipv4_network_cidr: 24
 ipv4_excluded_addresses:
   - 192.168.1.0
+dns_view: MyDNSView
 mac_address: "00:00:00:00:00:00"
-hostname: "host1.redhat.com"
+a_record: "host1.redhat.com"
 
