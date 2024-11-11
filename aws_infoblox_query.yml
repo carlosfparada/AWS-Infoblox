@@ -30,7 +30,7 @@
 
     - name: Get Existing DNS Views
       ansible.builtin.set_fact:
-        dns_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'dnsview', provider=provider) }}"
+        dns_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'view', provider=provider) }}"
 
     - name: For the single dns view particular case (it returns a dict)
       set_fact:
