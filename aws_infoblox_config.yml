@@ -40,7 +40,7 @@
         provider: "{{ provider }}"
         name: "{{ dns_view }}"
         network_view: "{{ network_view }}"
-        comment: "DNS View {{ network_view }}"
+        comment: "DNS View {{ dns_view }}"
         state: present
 
     - name: Create an IPv4 Container Network {{ ipv4_container }}
