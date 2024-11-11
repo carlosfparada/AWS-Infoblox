@@ -44,7 +44,7 @@
 
     - name: Get Existing DNS Zone
       ansible.builtin.set_fact:
-        dns_zones: "{{ lookup('infoblox.nios_modules.nios_lookup', 'dnszone', provider=provider) }}"
+        dns_zones: "{{ lookup('infoblox.nios_modules.nios_lookup', 'zone_auth', provider=provider) }}"
 
     - name: For the single dns zone particular case (it returns a dict)
       set_fact:
