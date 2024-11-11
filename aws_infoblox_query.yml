@@ -97,3 +97,17 @@
       debug:
         msg: "A Records: {{ item.arecords }}"
       loop: "{{ arecords }}"
+
+    - name: Get Existing Fixed Address
+      ansible.builtin.set_fact:
+        fixedaddresses: "{{ lookup('infoblox.nios_modules.nios_lookup', 'fixedaddress', provider=provider) }}"
+
+    - name: For the single A record particular case (it returns a dict)
+      set_fact:
+        fixedaddresses: "{{ [ fixedaddresses ] }}"
+      when: fixedaddresses | type_debug != "list"
+
+    - name: Debug Existing A Records
+      debug:
+        msg: "A Records: {{ item.fixedaddresses }}"
+      loop: "{{ fixedaddresses }}"
