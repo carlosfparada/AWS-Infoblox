@@ -28,6 +28,34 @@
       debug:
         var: provider
 
+    - name: Get Existing DNS Zone
+      ansible.builtin.set_fact:
+        dns_zones: "{{ lookup('infoblox.nios_modules.nios_lookup', 'zone', provider=provider) }}"
+
+    - name: For the single dns zone particular case (it returns a dict)
+      set_fact:
+        dns_zones: "{{ [ dns_zones ] }}"
+      when: dns_zones | type_debug != "list"
+
+    - name: Debug Existing DNS Zones
+      debug:
+        msg: "DNS Zones: {{ item.name }}"
+      loop: "{{ dns_zones }}"
+
+    - name: Get Existing DNS Views
+      ansible.builtin.set_fact:
+        dns_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'dnsview', provider=provider) }}"
+
+    - name: For the single dns view particular case (it returns a dict)
+      set_fact:
+        dns_views: "{{ [ dns_views ] }}"
+      when: dns_views | type_debug != "list"
+
+    - name: Debug Existing DNS Views
+      debug:
+        msg: "DNS Views: {{ item.name }}"
+      loop: "{{ dns_views }}"
+
     - name: Get Existing Network Views
       ansible.builtin.set_fact:
         network_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'networkview', provider=provider) }}"

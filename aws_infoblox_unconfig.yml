@@ -56,7 +56,15 @@
         container: true
         state: absent
 
-    - name: Create a DNS View {{ dns_view }}
+    - name: Delete a DNS Zone {{ dns_zone }}
+      infoblox.nios_modules.nios_zone:
+        provider: "{{ provider }}"
+        name: "{{ dns_zone }}"
+        view: "{{ dns_view }}"
+        comment: "Delete DNS Zone {{ dns_zone }}"
+        state: absent
+
+    - name: Delete a DNS View {{ dns_view }}
       infoblox.nios_modules.nios_dns_view:
         provider: "{{ provider }}"
         name: "{{ dns_view }}"
