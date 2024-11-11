@@ -44,7 +44,7 @@
         state: present
 
     - name: Create a DNS Zone {{ dns_zone }}
-      infoblox.nios_modules.nios_dns_zone:
+      infoblox.nios_modules.nios_zone:
         provider: "{{ provider }}"
         name: "{{ dns_zone }}"
         view: "{{ dns_view }}"
