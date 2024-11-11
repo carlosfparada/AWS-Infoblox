@@ -43,6 +43,14 @@
         comment: "DNS View {{ dns_view }}"
         state: present
 
+    - name: Create a DNS Zone {{ dns_zone }}
+      infoblox.nios_modules.nios_dns_zone:
+        provider: "{{ provider }}"
+        name: "{{ dns_zone }}"
+        view: "{{ dns_view }}"
+        comment: "DNS Zone {{ dns_zone }}"
+        state: present
+
     - name: Create an IPv4 Container Network {{ ipv4_container }}
       infoblox.nios_modules.nios_network:
         provider: "{{ provider }}"

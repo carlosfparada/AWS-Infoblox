@@ -61,6 +61,7 @@ username: "{{ ansible_user }}"
 password: "{{ ansible_ssh_pass }}"
 
 dns_view: MyDNSView2
+dns_zone: ansible.redhat.com
 network_view: MyNetworkView
 ipv4_container: 192.168.0.0/16
 ipv4_excluded_networks:
