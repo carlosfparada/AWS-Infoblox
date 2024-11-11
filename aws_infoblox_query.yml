@@ -24,9 +24,9 @@
       loop: "{{ hostvars[groups['infoblox'][0]].network_interfaces }}"
       when: item.association is defined and item.association.public_ip is defined
 
-    - name: Debug Provider Infoblox Data (Public IP, Username, Password) 
-      debug:
-        var: provider
+    # - name: Debug Provider Infoblox Data (Public IP, Username, Password) 
+    #   debug:
+    #     var: provider
 
     - name: Get Existing DNS Views
       ansible.builtin.set_fact:
