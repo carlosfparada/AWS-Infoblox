@@ -28,18 +28,19 @@
       debug:
         var: provider
 
-    - name: Create a DNS View {{ dns_view }}
-      infoblox.nios_modules.nios_dns_view:
-        provider: "{{ provider }}"
-        name: "{{ dns_view }}"
-        comment: "DNS View {{ network_view }}"
-        state: present
-
     - name: Create a Network View {{ network_view }}
       infoblox.nios_modules.nios_network_view:
         provider: "{{ provider }}"
         name: "{{ network_view }}"
         comment: "Network View {{ network_view }}"
+        state: present
+
+    - name: Create a DNS View {{ dns_view }}
+      infoblox.nios_modules.nios_dns_view:
+        provider: "{{ provider }}"
+        name: "{{ dns_view }}"
+        network_view: "{{ network_view }}"
+        comment: "DNS View {{ network_view }}"
         state: present
 
     - name: Create an IPv4 Container Network {{ ipv4_container }}
