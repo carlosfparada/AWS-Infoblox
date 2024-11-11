@@ -62,7 +62,7 @@
         state: present
 
     - name: Create DNS A Record for {{ ipv4_address }} -> {{ ipv4_hostname }}
-      infoblox.nios_modules.nios_fixed_address:
+      infoblox.nios_modules.nios_a_record:
         provider: "{{ provider }}"
         name: "{{ ipv4_hostname }}"
         ipaddr: "{{ ipv4_address }}"
