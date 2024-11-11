@@ -60,6 +60,7 @@ volumes:
 username: "{{ ansible_user }}"
 password: "{{ ansible_ssh_pass }}"
 
+dns_view: MyDNSView
 network_view: MyNetworkView
 ipv4_container: 192.168.0.0/16
 ipv4_excluded_networks:
@@ -68,7 +69,6 @@ ipv4_network: 192.168.10.0/24
 ipv4_network_cidr: 24
 ipv4_excluded_addresses:
   - 192.168.1.0
-dns_view: MyDNSView
 mac_address: "00:00:00:00:00:00"
-a_record: "host1.redhat.com"
+ipv4_hostname: "host1.redhat.com"
 
