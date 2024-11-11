@@ -55,7 +55,7 @@
         provider: "{{ provider }}"
         network_view: "{{ network_view }}"
         network: "{{ ipv4_network }}"
-        name: "{{ hostname }}"
+        name: "{{ ipv4_hostname }}"
         ipaddr: "{{ ipv4_address }}"
         mac: "{{ mac_address }}"
         comment: "Created Fixed IPv4 Address {{ ipv4_network }}"
