@@ -52,8 +52,8 @@
       when: dns_zones | type_debug != "list"
 
     - name: Debug Existing DNS Zones
-      debug:
-        msg: "DNS Zones: {{ item.name }}"
+      debug: 
+        msg: "DNS Zones: {{ item.fqdn }}"
       loop: "{{ dns_zones }}"
 
     - name: Get Existing Network Views
