@@ -95,7 +95,7 @@
 
     - name: Debug Existing A Records
       debug:
-        msg: "A Records: {{ item.arecords }}"
+        msg: "A Records: {{ item.name }} -> {{ item.ipv4addr }}"
       loop: "{{ arecords }}"
 
     - name: Get Existing Fixed Address
