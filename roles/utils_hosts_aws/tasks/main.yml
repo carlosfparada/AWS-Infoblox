@@ -7,8 +7,7 @@
   set_fact:
     node_name: "{{ item }}"
   loop: "{{ groups['all'] }}"
-  when: hostvars[item].tags.Name | regex_search("^infoblox-(.*)$")
-  ignore_errors: true
+  when: hostvars[item].tags is defined and  hostvars[item].tags.Name | regex_search("^infoblox-(.*)$")
 
 - name: Add infoblox node to the infoblox group
   add_host:
