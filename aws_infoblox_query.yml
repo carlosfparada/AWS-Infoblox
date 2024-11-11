@@ -32,6 +32,7 @@
       ansible.builtin.set_fact:
         dns_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'view', provider=provider) }}"
 
+    # DNS Views
     - name: For the single dns view particular case (it returns a dict)
       set_fact:
         dns_views: "{{ [ dns_views ] }}"
@@ -42,6 +43,7 @@
         msg: "DNS Views: {{ item.name }}"
       loop: "{{ dns_views }}"
 
+    # DNS Zone
     - name: Get Existing DNS Zone
       ansible.builtin.set_fact:
         dns_zones: "{{ lookup('infoblox.nios_modules.nios_lookup', 'zone_auth', provider=provider) }}"
@@ -56,6 +58,7 @@
         msg: "DNS Zones: {{ item.fqdn }}"
       loop: "{{ dns_zones }}"
 
+    # Network Views
     - name: Get Existing Network Views
       ansible.builtin.set_fact:
         network_views: "{{ lookup('infoblox.nios_modules.nios_lookup', 'networkview', provider=provider) }}"
@@ -70,6 +73,7 @@
         msg: "Network Views: {{ item.name }}"
       loop: "{{ network_views }}"
 
+    # Networks
     - name: Get Existing Networks
       ansible.builtin.set_fact:
         networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', network_view=network_view, provider=provider) }}"
@@ -84,6 +88,7 @@
         msg: "Network: {{ item.network }}"
       loop: "{{ networks }}"
 
+    # A Records
     - name: Get Existing A Records
       ansible.builtin.set_fact:
         arecords: "{{ lookup('infoblox.nios_modules.nios_lookup', 'record:a', provider=provider) }}"
@@ -98,6 +103,7 @@
         msg: "A Records: {{ item.name }} -> {{ item.ipv4addr }}"
       loop: "{{ arecords }}"
 
+    # Network Fixed Adddresses
     - name: Get Existing Fixed Address
       ansible.builtin.set_fact:
         fixedaddresses: "{{ lookup('infoblox.nios_modules.nios_lookup', 'fixedaddress', provider=provider) }}"
