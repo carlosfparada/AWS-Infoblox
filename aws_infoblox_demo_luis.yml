@@ -26,7 +26,7 @@
         network: "{{ ipv4_network }}"
         state: present
 
-    - name: Get Next IPv4 Address from Network "192.168.3.96/28"
+    - name: Get Next IPv4 Address from Network {{ ipv4_network }}
       ansible.builtin.set_fact:
         provider: "{{ provider }}"
         ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, network_view=network_view,
