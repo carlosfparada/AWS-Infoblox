@@ -1,0 +1,56 @@
+---
+
+- name: AWS Infoblox
+  hosts: localhost
+  vars:
+    infoblox_host: "34.197.15.22"
+    network_view: "MyNetworkView"
+    ipv4_network: "192.168.3.96/28"
+    ipv4_addr_excluded:
+      - "192.168.3.97"
+      - "192.168.3.98"
+    ipv4_hostname: host-vmware.ansible.redhat.com
+    dns_view: MyDNSView
+  tasks:
+    - name: Set Provider Infoblox
+      set_fact:
+        provider:
+          host: "{{ infoblox_host }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_ssh_pass }}"
+
+    - name: Create an IPv4 Network "{{ ipv4_network }}"
+      infoblox.nios_modules.nios_network:
+        provider: "{{ provider }}"
+        network_view: "MyNetworkView"
+        network: "{{ ipv4_network }}"
+        state: present
+
+    - name: Get Next IPv4 Address from Network "192.168.3.96/28"
+      ansible.builtin.set_fact:
+        provider: "{{ provider }}"
+        ipv4_address: "{{ lookup('infoblox.nios_modules.nios_next_ip', ipv4_network, network_view=network_view,
+        num=1, exclude=ipv4_addr_excluded, provider=provider)[0] }}"
+
+    - name: Debug Next IPv4 Address {{ ipv4_address }}
+      debug:
+        msg: "Next IPv4 address from Network {{ ipv4_network }} is {{ ipv4_address }}"
+
+    # - name: Create IPv4 Fixed Address {{ ipv4_address }}
+    #   infoblox.nios_modules.nios_fixed_address:
+    #     provider: "{{ provider }}"
+    #     network_view: "{{ network_view }}"
+    #     network: "{{ ipv4_network }}"
+    #     name: "{{ ipv4_hostname }}"
+    #     ipaddr: "{{ ipv4_address }}"
+    #     mac: "{{ mac_address }}"
+    #     comment: "Created Fixed IPv4 Address {{ ipv4_network }}"
+    #     state: present
+
+    - name: Create DNS A Record for {{ ipv4_address }} -> {{ ipv4_hostname }}
+      infoblox.nios_modules.nios_a_record:
+        provider: "{{ provider }}"
+        name: "{{ ipv4_hostname }}"
+        ipv4addr: "{{ ipv4_address }}"
+        view: "{{ dns_view }}"
+        state: present
