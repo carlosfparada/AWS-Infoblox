@@ -19,8 +19,8 @@
       set_fact:
         provider:
           host: "{{ item.association.public_ip }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          username: "{{ infoblox_username }}"
+          password: "{{ infoblox_password }}"
       loop: "{{ hostvars[groups['infoblox'][0]].network_interfaces }}"
       when: item.association is defined and item.association.public_ip is defined
 

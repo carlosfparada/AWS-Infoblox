@@ -4,8 +4,8 @@
   hosts: localhost
   vars:
     infoblox_host: "34.197.15.22"
-    username: "{{ ansible_user }}"
-    password: "{{ ansible_ssh_pass }}"
+    username: "{{ infoblox__user }}"
+    password: "{{ infoblox_password }}"
     network_view: "MyNetworkView"
     ipv4_network: "192.168.3.96/28"
     ipv4_addr_excluded:
@@ -18,8 +18,8 @@
       set_fact:
         provider:
           host: "{{ infoblox_host }}"
-          username: "{{ username }}"
-          password: "{{ password }}"
+          username: "{{ infoblox__user }}"
+          password: "{{ infoblox_password }}"
 
     - name: Create an IPv4 Network "{{ ipv4_network }}"
       infoblox.nios_modules.nios_network:
