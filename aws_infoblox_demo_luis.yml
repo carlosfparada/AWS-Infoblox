@@ -4,7 +4,7 @@
   hosts: localhost
   vars:
     infoblox_host: "34.197.15.22"
-    username: "{{ infoblox__user }}"
+    username: "{{ infoblox_user }}"
     password: "{{ infoblox_password }}"
     network_view: "MyNetworkView"
     ipv4_network: "192.168.3.96/28"
@@ -18,7 +18,7 @@
       set_fact:
         provider:
           host: "{{ infoblox_host }}"
-          username: "{{ infoblox__user }}"
+          username: "{{ infoblox_user }}"
           password: "{{ infoblox_password }}"
 
     - name: Create an IPv4 Network "{{ ipv4_network }}"
