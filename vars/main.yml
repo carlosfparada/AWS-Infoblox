@@ -57,7 +57,7 @@ volumes:
 # Infoblox #
 ############
 
-infoblox_username: "{{ ansible_user }}"
+infoblox_user: "{{ ansible_user }}"
 infoblox_password: "{{ ansible_password }}"
 
 dns_view: MyDNSView
