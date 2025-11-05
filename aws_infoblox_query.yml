@@ -76,7 +76,7 @@
     # Networks
     - name: Get Existing Networks
       ansible.builtin.set_fact:
-        networks: "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', network_view=network_view, provider=provider) }}"
+         "{{ lookup('infoblox.nios_modules.nios_lookup', 'network', network_view=network_view, provider=provider) }}"
 
     - name: For the single network particular case (it returns a dict)
       set_fact:
